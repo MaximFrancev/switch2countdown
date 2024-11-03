@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch 2 Countdown</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Основной шрифт */
+        body {
+            font-family: "Press Start 2P", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            overflow: hidden;
+            flex-direction: column;
+            background: url('assets/images/level-3-1.png') center center / cover no-repeat;
+            image-rendering: pixelated;
+            color: white;
+        }
+
+        /* Центрирование и стили таймера */
+        .countdown-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            text-align: center;
+            mix-blend-mode: difference;
+            margin-bottom: 60px; /* Чуть выше */
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            display: flex;
+            font-size: 3.8rem;
+            letter-spacing: 0.2em;
+        }
+
+        .countdown div {
+            margin: 0 15px;
+        }
+
+        .label {
+            font-size: 1rem;
+            color: #aaaaaa;
+            mix-blend-mode: normal;
+        }
+
+        /* Стиль для сообщения Яндекс.Браузера */
+        #yandex-message {
+            display: none;
+            color: #ff4d4d;
+            font-size: 1.3rem;
+            margin: 20px;
+            z-index: 2;
+            text-align: center;
+        }
+
+        #yandex-message a {
+            color: #1e90ff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="yandex-message">
+        Автор сайта ненавидит Яндекс.Браузер. Пожалуйста, смените браузер.
+        <a href="https://www.google.com/chrome/" target="_blank">Скачать Google Chrome</a>
+    </div>
+
+    <div class="countdown-container">
+        <h1 id="title-text">Time until Switch 2 announcement...</h1>
+        <div class="countdown" id="countdown">
+            <div>
+                <span id="days">00</span>
+                <div class="label">DAYS</div>
+            </div>
+            <div>
+                <span id="hours">00</span>
+                <div class="label">HOURS</div>
+            </div>
+            <div>
+                <span id="minutes">00</span>
+                <div class="label">MINUTES</div>
+            </div>
+            <div>
+                <span id="seconds">00</span>
+                <div class="label">SECONDS</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var isYandexBrowser = /YaBrowser|Yowser/.test(navigator.userAgent) || !!window.Ya || !!window.yandex;
+
+            if (isYandexBrowser) {
+                document.getElementById('yandex-message').style.display = 'block';
+                document.querySelector('.countdown-container').style.display = 'none';
+                document.body.style.background = '#000';
+            } else {
+                const countdownDate = new Date("2024-11-05T14:00:00Z").getTime();
+
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = countdownDate - now;
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("days").textContent = days.toString().padStart(2, '0');
+                    document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+                    document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("countdown").innerHTML = "Announced!";
+                    }
+                }
+
+                const x = setInterval(updateCountdown, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
