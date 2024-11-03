@@ -32,7 +32,7 @@
             z-index: 1;
             text-align: center;
             mix-blend-mode: difference;
-            margin-bottom: 60px; /* Чуть выше */
+            margin-bottom: 60px;
         }
 
         h1 {
@@ -44,6 +44,7 @@
             display: flex;
             font-size: 3.8rem;
             letter-spacing: 0.2em;
+            transition: color 0.5s ease; /* Плавный переход для изменения цвета */
         }
 
         .countdown div {
@@ -110,7 +111,8 @@
                 document.body.style.background = '#000';
             } else {
                 const countdownDate = new Date("2024-11-05T14:00:00Z").getTime();
-
+                const thirtyMinutesInMs = 30 * 60 * 1000;
+                
                 function updateCountdown() {
                     const now = new Date().getTime();
                     const distance = countdownDate - now;
@@ -120,14 +122,21 @@
                     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+                    // Отображение оставшегося времени
                     document.getElementById("days").textContent = days.toString().padStart(2, '0');
                     document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
                     document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
                     document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
 
+                    // Изменение цвета на красный за 30 минут до конца
+                    if (distance <= thirtyMinutesInMs) {
+                        document.getElementById("countdown").style.color = "#ff4d4d";
+                    }
+
+                    // Перенаправление после завершения таймера
                     if (distance < 0) {
                         clearInterval(x);
-                        document.getElementById("countdown").innerHTML = "Announced!";
+                        window.location.href = "https://www.youtube.com/@NintendoAmerica";
                     }
                 }
 
