@@ -85,7 +85,7 @@
     </div>
 
     <div class="countdown-container">
-        <h1 id="title-text">Time until Switch 2 announcement...</h1>
+        <h1 id="title-text">Время до Switch 2 Direct...</h1>
         <div class="countdown" id="countdown">
             <div>
                 <span id="days">00</span>
@@ -104,7 +104,6 @@
                 <div class="label">SECONDS</div>
             </div>
         </div>
-        <!-- Сообщение после завершения таймера -->
         <div id="post-timer-message">
             If you returned to this page after the timer ended and did not find the announcement of Nintendo Switch 2, this means that Switch 2 is not happening.
         </div>
@@ -119,7 +118,7 @@
                 document.querySelector('.countdown-container').style.display = 'none';
                 document.body.style.background = '#000';
             } else {
-                const countdownDate = new Date("2025-03-10T13:00:00Z").getTime();
+                const countdownDate = new Date("2025-04-02T14:00:00Z").getTime();
                 const thirtyMinutesInMs = 30 * 60 * 1000;
                 
                 function updateCountdown() {
@@ -143,8 +142,6 @@
                     if (distance < 0) {
                         clearInterval(x);
                         window.location.href = "https://www.youtube.com/@NintendoAmerica";
-
-                        // Показать сообщение для тех, кто вернулся на страницу после окончания таймера
                         document.getElementById('post-timer-message').style.display = 'block';
                     }
                 }
